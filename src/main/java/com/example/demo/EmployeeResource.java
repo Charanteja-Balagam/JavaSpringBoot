@@ -40,6 +40,17 @@ public class EmployeeResource {
 	    return employee;
 	}
 	
+	@GetMapping("/getEmployeebyName")
+	public ResponseEntity<Employee> getEmployeeByName(@RequestParam String ename) {
+	    Employee employee = repo.findByName(ename);
+
+	    if (employee != null) {
+	        return ResponseEntity.ok(employee);
+	    } else {
+	        return ResponseEntity.notFound().build();
+	    }
+	}
+
 	@PutMapping("/updateEmployee")
     public ResponseEntity<Employee> updateEmployee(@RequestParam Integer id, @RequestBody Employee updatedEmployee) {
         Optional<Employee> existingEmployeeOptional = repo.findById(id);
